@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приют для Животных "Новая Жизнь"</title>
+    <link rel="stylesheet" href="/project/public/css/styles.css">
+
+
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="#about">О нас</a></li>
+            <li><a href="#events">События</a></li>
+            <li><a href="#animals">Животные</a></li>
+            <li><a href="#contact">Как связаться</a></li>
+            <li><a href="#volunteer">Волонтерство</a></li>
+            <li><a href="#adoption">Усыновление</a></li>
+        </ul>
+    </nav>
+    <h1>Приют для Животных "Новая Жизнь"</h1>
+    <p>Вместе мы можем изменить жизнь бездомных животных!</p>
+</header>
+
+<section id="about">
+    <h2>О нас</h2>
+    <p>Приют для животных "Новая Жизнь" был основан с целью обеспечить безопасное убежище для бездомных и нуждающихся животных...</p>
+</section>
+
+<section id="events">
+    <h2>События</h2>
+    <p>Следите за нашими мероприятиями и акциями, чтобы стать частью нашей команды!</p>
+</section>
+
+<section id="animals">
+    <h2>Наши Животные</h2>
+    <div class="cards">
+
+        {% foreach $animals as $animal %}
+        <div class="card">
+            <img src="{{ $animal['image'] }}" alt="{{ $animal['name'] }}" class="image">
+            <h3>Кличка: {{ $animal['name'] }} </h3>
+            <p>Возраст: {{ $animal['age'] }}</p>
+            <p>Вид: {{ $animal['type'] }}</p>
+            <p>Описание: {{ $animal['description'] }}</p>
+            <a href="adoption-form.html" class="adopt-button">Усыновить</a>
+        </div>
+        {% endforeach %}
+
+    </div>
+</section>
+
+<section id="adoption">
+    <h2>Усыновление</h2>
+    <p>Посетите наш раздел "Доступные животные", чтобы найти своего нового лучшего друга.</p>
+</section>
+
+<section id="volunteer">
+    <h2>Волонтерство</h2>
+    <p>Присоединяйтесь к нашей команде волонтеров и помогите нам ухаживать за животными!</p>
+</section>
+
+<section id="contact">
+    <h2>Как связаться</h2>
+    <p>Телефон: +7 (123) 456-78-90</p>
+    <p>Электронная почта: <a href="mailto:info@newlife-shelter.org">info@newlife-shelter.org</a></p>
+    <p>Адрес: ул. Зоологическая, 10, г. Москва</p>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <p>Каждый маленький шаг может привести к большой перемене. Вместе мы можем сделать этот мир лучше для животных!</p>
+        <div class="social-media">
+            <a href="https://www.facebook.com" target="_blank">Facebook</a>
+            <a href="https://www.instagram.com" target="_blank">Instagram</a>
+            <a href="https://www.twitter.com" target="_blank">Twitter</a>
+        </div>
+        <div class="footer-links">
+            <a href="#privacy-policy">Политика конфиденциальности</a> |
+            <a href="#terms-of-service">Условия использования</a> |
+            <a href="#contact">Контакты</a>
+        </div>
+    </div>
+    <p> Приют для Животных "Новая Жизнь". Все права защищены.</p>
+</footer>
+</body>
+</html>
