@@ -12,6 +12,7 @@ body {
 }
 
 header {
+
     background: #71a042; /* Цвет фона для шапки и меню */
     text-align: center; /* Центрируем текст в заголовке */
     padding: 20px;
@@ -68,26 +69,30 @@ section {
     background: #f9f9f9; /* Светлый фон секций */
 }
 
-/* Стили для карточек животных */
 .cards {
-    display: flex; /* Flexbox для выравнивания карточек */
-    justify-content: space-between;
-    flex-wrap: wrap; /* Позволяет обтекание */
-}
+     display: flex; /* Flexbox для выравнивания карточек */
+     justify-content: flex-start; /* Выравнивание по началу */
+     flex-wrap: wrap; /* Позволяет обтекание */
+ }
 
 .card {
-    background: #eaeaea; /* Светло-серый фон карточек */
+    background: #eaeaea;
     border-radius: 8px;
     padding: 15px;
     margin: 10px;
-    max-width: 300px; /* Максимальная ширина карточек */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Тень для карточек */
-    text-align: center; /* Центрирование текста */
+    flex: 1 1 300px; /* Гибкая ширина с минимальной шириной 300px */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow: hidden; /* Скрываем часть содержимого, выходящую за пределы карточки */
 }
 
 .image {
-    max-width: 100%;
-    border-radius: 8px; /* Скругление углов изображения */
+    width: 100%; /* Занимает 100% ширины карточки */
+    height: 300px; /* Фиксированная высота для всех изображений */
+    object-fit: cover; /* Обрезка изображения для заполнения области */
+    display: block;
+    margin: 0 auto; /* Центрирование изображения */
+    border-radius: 4px; /* Скругление углов */
 }
 
 .adopt-button {

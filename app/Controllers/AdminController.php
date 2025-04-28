@@ -1,19 +1,19 @@
 <?php
+declare(strict_types=1);
 namespace project\app\Controllers;
 
 use project\services\AdminService;
-use project\template\MyTemplate;
-
+use project\template\TemplateEngine;
+use project\utils\RouteCollection;
 class AdminController
 {
     private AdminService $adminService;
-    private MyTemplate $template;
-    private const BASE_PATH = '/project';
+    private TemplateEngine $template;
 
     public function __construct()
     {
-        $this->adminService = new AdminService(__DIR__.'/../../public');
-        $this->template = new MyTemplate();
+        $this->adminService = new AdminService(RouteCollection::PUBLIC_PATH);
+        $this->template = new TemplateEngine();
     }
 
     public function index(): void
@@ -22,11 +22,11 @@ class AdminController
         $items = $this->adminService->listItems($currentDir);
         $breadcrumbs = $this->adminService->getBreadcrumbs($currentDir);
 
-        echo $this->template->view('C:\webdata\project\admin\html\file_manager.html', [
+        echo $this->template->view(RouteCollection::FILE_MANAGER_TEMPLATE, [
             'items' => $items,
             'currentDir' => $currentDir,
             'breadcrumbs' => $breadcrumbs,
-            'basePath' => self::BASE_PATH
+            'basePath' => RouteCollection::BASE_PATH
         ]);
     }
 
@@ -38,7 +38,7 @@ class AdminController
             $this->adminService->uploadFile($currentDir, $_FILES['file']);
         }
 
-        header("Location: ".self::BASE_PATH."/admin?path=".urlencode($currentDir));
+        header(RouteCollection:: ADMIN_HEADER.urlencode($currentDir));
         exit;
     }
 
@@ -48,7 +48,7 @@ class AdminController
         $fileName = $_GET['fileName'] ?? '';
 
         $this->adminService->deleteFile($currentDir, $fileName);
-        header("Location: ".self::BASE_PATH."/admin?path=".urlencode($currentDir));
+        header(RouteCollection:: ADMIN_HEADER.urlencode($currentDir));
         exit;
     }
 
@@ -58,7 +58,7 @@ class AdminController
         $dirName = $_POST['dirName'] ?? '';
 
         $this->adminService->createDirectory($currentDir, $dirName);
-        header("Location: ".self::BASE_PATH."/admin?path=".urlencode($currentDir));
+        header(RouteCollection:: ADMIN_HEADER.urlencode($currentDir));
         exit;
     }
 
@@ -68,7 +68,7 @@ class AdminController
         $dirName = $_GET['dirName'] ?? '';
 
         $this->adminService->deleteDirectory($currentDir, $dirName);
-        header("Location: ".self::BASE_PATH."/admin?path=".urlencode($currentDir));
+        header(RouteCollection:: ADMIN_HEADER.urlencode($currentDir));
         exit;
     }
 }

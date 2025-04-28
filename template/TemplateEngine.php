@@ -1,8 +1,8 @@
 <?php
-
+declare(strict_types=1);
 namespace project\template;
 
-class MyTemplate
+class TemplateEngine
 {
     public function view(string $file, array $data = []): string
     {

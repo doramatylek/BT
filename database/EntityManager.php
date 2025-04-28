@@ -1,10 +1,12 @@
 <?php
-
+declare(strict_types=1);
 namespace project\database;
+
+use mysqli;
 
 class EntityManager
 {
-    private $connection;
+    private ?mysqli $connection = null; // Объект соединения
     private string $server;
     private string $user;
     private string $pass;
@@ -12,39 +14,29 @@ class EntityManager
 
     public function __construct(string $envFile)
     {
-        // Загрузка данных из файла конфигурации и инициализация параметров соединения
-        $config = parse_ini_file($envFile);
+
+        $config = EnvConfigLoader::load($envFile);
 
         $this->server = $config['server'] ?? '';
         $this->user = $config['user'] ?? '';
         $this->pass = $config['pass'] ?? '';
         $this->dbname = $config['dbname'] ?? '';
 
-        //$this->openConnection();
+        $this->openConnection();
     }
 
-    public function find(string $table, string $id): void
+    private function openConnection(): void
     {
-        // Поиск записи в таблице $table с заданным идентификатором $id
+
     }
 
-    public function insert(string $table, array $data): void
+    public function getConnection(): ?mysqli
     {
-        // Вставка новой записи в таблицу $table с переданными данными $data
-    }
-
-    public function update(string $table, string $id, array $data): void
-    {
-        // Обновление записи в таблице $table с идентификатором $id новыми данными $data
-    }
-
-    public function delete(string $table, string $id): void
-    {
-        // Удаление записи из таблицы $table с указанным идентификатором $id
+        return null;
     }
 
     public function close(): void
     {
-        // Закрытие соединения с базой данных
+
     }
 }

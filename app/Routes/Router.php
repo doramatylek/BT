@@ -1,9 +1,11 @@
 <?php
-
+declare(strict_types=1);
 namespace project\app\Routes;
 
 use project\app\Controllers\AnimalController;
 use project\app\Routes\AdminRouter;
+use project\utils\RouteCollection;
+use project\utils\ErrorMessages;
 
 class Router
 {
@@ -21,13 +23,11 @@ class Router
 
     public function route(string $requestUri): void
     {
-        $basePath = '/project';
+        $basePath = RouteCollection::BASE_PATH;
         $requestMethod = $_SERVER['REQUEST_METHOD'];
 
         $trimmedUri = preg_replace('#^'.preg_quote($basePath, '#').'#', '', $requestUri);
         $trimmedUri = $trimmedUri === '' ? '/' : $trimmedUri;
-
-        error_log("Processing: {$requestMethod} {$trimmedUri}");
 
         $path = explode('/', trim(parse_url($trimmedUri, PHP_URL_PATH), '/'));
         $route = $path[0] ?? '';
@@ -49,6 +49,6 @@ class Router
         }
 
         http_response_code(404);
-        die("Маршрут не найден: {$requestMethod} {$requestUri}");
+        die(ErrorMessages::ROUT_NOT_FOUND . $requestMethod.' '.$requestUri);
     }
 }

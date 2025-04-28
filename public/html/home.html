@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Приют для Животных "Новая Жизнь"</title>
-    <link rel="stylesheet" href="/project/public/css/styles.css">
+    <link rel="stylesheet" href="/project/public/css/styles.css?v=1.0">
+
 
 
 </head>
@@ -40,7 +41,7 @@
 
         {% foreach $animals as $animal %}
         <div class="card">
-            <img src="{{ $animal['image'] }}" alt="{{ $animal['name'] }}" class="image">
+            <img src="{{ $animal['image'] }}" alt="{{ $animal['name'] }}"  class="image">
             <h3>Кличка: {{ $animal['name'] }} </h3>
             <p>Возраст: {{ $animal['age'] }}</p>
             <p>Вид: {{ $animal['type'] }}</p>

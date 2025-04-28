@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace project\services;
 use project\database\EntityManager;
 class AnimalService
@@ -25,9 +25,9 @@ class AnimalService
         //            'image' => $animal->getImageUrl(),
         //        ];
         $animals = [
-            ['name' => 'Rom', 'age' => '5', 'type' => 'dog', 'description' => '...', 'image' =>__DIR__ . '/../public/img/rom.png'],
-            ['name' => 'Vursik', 'age' => '2', 'type' => 'cat', 'description' => '...', 'image' =>__DIR__ . '/../public/img/vursik.png'],
-            ['name' => 'Pascal', 'age' => '1', 'type' => 'rat', 'description' => '...', 'image' =>__DIR__ . '/../public/img/pascal.png'],
+            ['name' => 'Rom', 'age' => '5', 'type' => 'dog', 'description' => '...', 'image' => 'http://localhost/project/public/img/rom.jpg'],
+            ['name' => 'Vursik', 'age' => '2', 'type' => 'cat', 'description' => '...', 'image' => 'http://localhost/project/public/img/vurs.jpg'],
+            ['name' => 'Pascal', 'age' => '1', 'type' => 'rat', 'description' => '...', 'image' => 'http://localhost/project/public/img/pascal.jpg'],
         ];
         $data = ['animals' => $animals];
         return $data;

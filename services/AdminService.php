@@ -1,9 +1,10 @@
 <?php
-
+declare(strict_types=1);
 namespace project\services;
 
 use Exception;
-
+use project\utils\ErrorMessages;
+use project\utils\FileManagerConstants;
 class AdminService
 {
     private string $basePath;
@@ -12,7 +13,7 @@ class AdminService
     {
         $this->basePath = realpath($basePath);
         if ($this->basePath === false) {
-            throw new Exception("Base path does not exist");
+            throw new Exception(ErrorMessages::BASE_PATH_DOES_NOT_EXIST);
         }
     }
 
@@ -23,7 +24,7 @@ class AdminService
         $fullPath = realpath($fullPath) ?: $this->basePath . '\\' . $relativePath;
 
         if (strpos($fullPath, $this->basePath) !== 0) {
-            throw new Exception("Access denied: trying to access outside base directory");
+            throw new Exception(ErrorMessages::DIRECTORY_TRAVERSAL);
         }
 
         return $fullPath;
@@ -42,7 +43,7 @@ class AdminService
                         'name' => $item,
                         'is_dir' => is_dir($itemPath),
                         'size' => is_dir($itemPath) ? '-' : $this->formatSize(filesize($itemPath)),
-                        'modified' => date('Y-m-d H:i:s', filemtime($itemPath)),
+                        'modified' => date(FileManagerConstants::DATE, filemtime($itemPath)),
                     ];
                 }
             }
@@ -120,18 +121,22 @@ class AdminService
 
     private function formatSize(int $bytes): string
     {
-        if ($bytes >= 1073741824) {
-            return number_format($bytes / 1073741824, 2) . ' GB';
-        } elseif ($bytes >= 1048576) {
-            return number_format($bytes / 1048576, 2) . ' MB';
-        } elseif ($bytes >= 1024) {
-            return number_format($bytes / 1024, 2) . ' KB';
-        } elseif ($bytes > 1) {
-            return $bytes . ' bytes';
-        } elseif ($bytes == 1) {
-            return '1 byte';
+        if ($bytes >= FileManagerConstants::GB) {
+            return number_format($bytes / FileManagerConstants::GB, 2) . FileManagerConstants::GB_LABEL;
+        }
+        if ($bytes >= FileManagerConstants::MB) {
+            return number_format($bytes / FileManagerConstants::MB, 2) . FileManagerConstants::MB_LABEL;
+        }
+        if ($bytes >= FileManagerConstants::KB) {
+            return number_format($bytes / FileManagerConstants::KB, 2) . FileManagerConstants::KB_LABEL;
+        }
+        if ($bytes > 1) {
+            return $bytes . FileManagerConstants::BYTES;
+        }
+        if ($bytes == 1) {
+            return FileManagerConstants::BYTE;
         } else {
-            return '0 bytes';
+            return FileManagerConstants::ZERO_BYTES;
         }
     }
 }

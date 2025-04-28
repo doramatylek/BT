@@ -1,8 +1,9 @@
 <?php
-
+declare(strict_types=1);
 namespace project\app\Routes;
 
 use project\app\Controllers\AdminController;
+use project\utils\ErrorMessages;
 
 class AdminRouter
 {
@@ -29,7 +30,7 @@ class AdminRouter
         }
 
         http_response_code(404);
-        die("Admin route not found: {$requestMethod} {$requestUri}");
+        die(ErrorMessages::ROUT_NOT_FOUND . $requestMethod . ' ' . $requestUri);
     }
 
     private function matchRoute(string $routeKey, string $pattern): bool

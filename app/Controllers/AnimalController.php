@@ -1,26 +1,26 @@
 <?php
-
+declare(strict_types=1);
 namespace project\app\Controllers;
 use project\services\AnimalService;
-use project\template\MyTemplate;
-
+use project\template\TemplateEngine;
+use project\utils\RouteCollection;
 class AnimalController
 {
     private AnimalService $animalService;
 
-    private MyTemplate $myTemplate;
+    private TemplateEngine $myTemplate;
 
     public function __construct()
     {
         $this->animalService = new AnimalService();
 
-        $this->myTemplate = new MyTemplate();
+        $this->myTemplate = new TemplateEngine();
     }
 
     public function showAnimals(): void
     {
         echo $this->myTemplate->view(
-            'C:\webdata\project\public\html\home.html',
+            RouteCollection::ANIMAL_PAGE_TEMPLATE,
             $this->animalService->showAnimals()
         );
     }

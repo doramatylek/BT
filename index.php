@@ -1,12 +1,12 @@
 <?php
-
 declare(strict_types=1);
+
 spl_autoload_register(function ($class) {
     $file = dirname(__DIR__) . '/' . str_replace('\\', '/', $class) . '.php';
     if (file_exists($file)) {
         require_once $file;
     } else {
-        die("Файл для класса {$class} не найден: {$file}");
+        die('Файл для класса не найден: ' . $class. ' ' .$file);
     }
 });
 use project\app\Routes\Router;
